@@ -66,6 +66,7 @@ public class TesteSistema {
                      listaLoginFuncionario = sql.query("SELECT * FROM Computador WHERE (SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?)",
                              new BeanPropertyRowMapper<>(Computador.class),emailFuncionario, senha);
 
+
                      if (listaLoginFuncionario.size() == 0){
                          System.out.println("""
                                  |------------------------------------------------------|
