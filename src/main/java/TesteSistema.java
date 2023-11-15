@@ -165,7 +165,7 @@ public class TesteSistema {
                                                      break;
 
                                                  case 2:
-                                                     List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, DATE_FORMAT(dataHoraMedida, '%d %c %Y %T') AS 'dataHoraMedida' FROM Medida join setup on idSetup = fkSetup join Componente on idComponente = fkComponente where idSetup = ?;" ,
+                                                     List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, DATE_FORMAT(dataHoraMedida, '%d %c %Y %T') AS 'dataHoraMedida' FROM Medida join Setup on idSetup = fkSetup join Componente on idComponente = fkComponente where idSetup = ?;" ,
                                                              new BeanPropertyRowMapper<>(Medida.class), idSetup);
 
                                                      for (Medida medida : medidasInseridas) {
