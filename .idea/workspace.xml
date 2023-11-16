@@ -5,29 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13252220-6474-434a-9c17-1764ffd868b3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Log/Log.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/integracao/Slack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TesteSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TesteSistema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Componente.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Computador.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Computador/LimiteComponente.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Setup.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Conexao/Conexao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Conexao/Sistema.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Medida/Medida.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/login/Funcionario.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/login/TipoConta.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,13 +32,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2YEU9v7i3QxmbySGlSeQbbCR2Y4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,8 +42,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Aluno/Documents/CryptoJava2"
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Aluno/IdeaProjects/CryptoJava",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunAnythingCache">
@@ -82,7 +83,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1700090086708</updated>
+      <workItem from="1700155844392" duration="5192000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
