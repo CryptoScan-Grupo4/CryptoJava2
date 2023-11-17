@@ -46,6 +46,7 @@ public class TesteSistema {
 
         Components components = JSensors.get.components();
         List<Gpu> gpus = components.gpus;
+        Gpu gpuUnique = components.gpus.get(0);
 
         System.out.println("""
                 |-------------------------------|
@@ -171,6 +172,8 @@ public class TesteSistema {
 
                                                     Double porcentagemMemoria = Double.valueOf((usoMemoria * 100) / limiteMemoria);
 
+                                                    Double temperaturaGPU = Double.valueOf(gpuUnique.sensors.temperatures.get(0).value);
+
                                                     Double valorDisponivelDisco = Double.valueOf(looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel() / 8e+9);
                                                     Double valorTotalDisco = Double.valueOf(looca.getGrupoDeDiscos().getVolumes().get(0).getTotal() / 8e+9);
 
@@ -189,6 +192,7 @@ public class TesteSistema {
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 2, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 3, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 4, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 6, idSetup);
                                                 }
                                             }, 5000, 2000);
 
