@@ -8,6 +8,7 @@ import com.github.britooo.looca.api.group.discos.Disco;
 import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
+import com.github.britooo.looca.api.group.rede.RedeInterface;
 import com.github.britooo.looca.api.group.sistema.Sistema;
 import com.github.britooo.looca.api.util.Conversor;
 import com.profesorfalken.jsensors.JSensors;
@@ -188,11 +189,37 @@ public class TesteSistema {
                                                     Double discoOcupado = (valorTotalArrendondado - valorDisponivelArrendondado);
                                                     Double usoDisco = ((discoOcupado * 100) / valorTotalArrendondado);
 
+                                                    Double velocidadeDownload = 0.0;
+                                                    List<RedeInterface> lista = looca.getRede().getGrupoDeInterfaces().getInterfaces();
+                                                    for (int i = 0; lista.size() > i; i++){
+                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()){
+                                                            velocidadeDownload = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getBytesRecebidos().doubleValue();
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    Double velocidadeUpload = 0.0;
+                                                    for (int i = 0; lista.size() > i; i++){
+                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()){
+                                                            velocidadeUpload = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getBytesEnviados().doubleValue();
+                                                            break;
+                                                        }
+                                                    }
+                                                     Conversor.formatarBytes(velocidadeDownload.longValue());
+                                                     Conversor.formatarBytes(velocidadeUpload.longValue());
+
+                                                    Double porcentagemUsoDowload = (velocidadeDownload * 100 ) / 150.0;
+                                                    Double porcentagemUsoUpload = (velocidadeUpload * 100) / 150.0;
+
+
+
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoProcessador, 1, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 2, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 3, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 4, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 6, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeDownload, 5, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeUpload, 6, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 7, idSetup);
                                                 }
                                             }, 5000, 2000);
 
@@ -253,7 +280,11 @@ public class TesteSistema {
 
                                 } while (opcaoDados != 5);
 
+                                 System.out.println("Parando o sistema");
 
+                                    System.exit(0);
+
+                                    break;
                             }
 
                         }
@@ -261,13 +292,6 @@ public class TesteSistema {
                     }
                     break;
 
-                case 0: {
-                    System.out.println("Parando o sistema");
-
-                    System.exit(0);
-
-                    break;
-                }
             }
 
         } while (opcaoEscolhida != 0);

@@ -2,10 +2,13 @@ login\TipoConta.class
 Conexao\Sistema.class
 TesteSistema$1.class
 Computador\Computador.class
+integracao\Slack.class
+TesteSistema.class
+integracao\App.class
 Computador\LimiteComponente.class
 Medida\Medida.class
 Computador\Setup.class
 Conexao\Conexao.class
+Log\Log.class
 login\Funcionario.class
-TesteSistema.class
 Computador\Componente.class

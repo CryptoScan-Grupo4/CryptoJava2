@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13252220-6474-434a-9c17-1764ffd868b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Log/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/integracao/Slack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TesteSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TesteSistema.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Aluno/IdeaProjects/CryptoJava",
+    "last_opened_file_path": "C:/Users/Aluno/Documents/CryptoJava2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
