@@ -5,12 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13252220-6474-434a-9c17-1764ffd868b3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Conexao/ConexaoSql.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Conexao/Conexao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Conexao/Conexao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TesteSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TesteSistema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Componente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Computador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/LimiteComponente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Setup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Conexao/Conexao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Conexao/Sistema.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Log/Log.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Medida/Medida.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/integracao/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/integracao/Slack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/login/Funcionario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/login/TipoConta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +51,9 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2YEU9v7i3QxmbySGlSeQbbCR2Y4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Aluno/Documents/CryptoJava2",
+    "last_opened_file_path": "C:/Users/Aluno/Documents/Sprint - 3° Semestre/CryptoJava2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

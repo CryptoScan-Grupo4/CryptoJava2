@@ -24,16 +24,4 @@ public class Conexao {
 
 
 
-
-    // Conexão SQL SERVER
-//    public Conexao.Conexao() {
-//        BasicDataSource dataSource = new BasicDataSource();
-//        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        dataSource.setUrl("jdbc:sqlserver://localhost:1433;database=mydb");
-//        dataSource.setUsername("");
-//        dataSource.setPassword("");
-//
-//        conexaoDoBanco = new JdbcTemplate(dataSource);
-//    }
-
 }

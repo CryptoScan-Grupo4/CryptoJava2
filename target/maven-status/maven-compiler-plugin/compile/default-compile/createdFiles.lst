@@ -5,6 +5,7 @@ Computador\Computador.class
 integracao\Slack.class
 TesteSistema.class
 integracao\App.class
+Conexao\ConexaoSql.class
 Computador\LimiteComponente.class
 Medida\Medida.class
 Computador\Setup.class
