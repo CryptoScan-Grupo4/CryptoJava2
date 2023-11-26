@@ -84,7 +84,7 @@ public class TesteSistema {
                     senha = leitorLogin.nextLine();
                     log.info("Senha informada");
 
-                    listaLoginFuncionario = sql.query("SELECT * FROM Computador WHERE (SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?)",
+                    listaLoginFuncionario = sql.query("SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?",
                             new BeanPropertyRowMapper<>(Computador.class), emailFuncionario, senha);
 
 
@@ -110,7 +110,7 @@ public class TesteSistema {
                         serialMaquina = leitorSerial.nextInt();
                         log.info("Serial da máquina informado!");
 
-                        List<Setup> codigoComputadores = sql.query("SELECT idSetup, fkComputador FROM Setup WHERE(SELECT serialComputador FROM Computador WHERE serialComputador = ?)",
+                        List<Setup> codigoComputadores = sql.query("SELECT serialComputador FROM Computador WHERE serialComputador = ?",
                                 new BeanPropertyRowMapper<>(Setup.class), serialMaquina);
 
                         if (codigoComputadores.size() == 0) {
@@ -228,7 +228,7 @@ public class TesteSistema {
                                         case 2:
                                             log.info("Vizualizando histórico");
 
-                                            List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, DATE_FORMAT(dataHoraMedida, '%d %c %Y %T') AS 'dataHoraMedida' FROM Medida join Setup on idSetup = fkSetup join Componente on idComponente = fkComponente where idSetup = ?;",
+                                            List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, FORMAT(dataHoraMedida, 'dd MMM yyyy HH:mm:ss') AS dataHoraMedida FROM Medida JOIN Setup ON idSetup = fkSetup JOIN Componente ON idComponente = fkComponente WHERE idSetup = ?;",
                                                     new BeanPropertyRowMapper<>(Medida.class), idSetup);
 
                                             for (Medida medida : medidasInseridas) {
