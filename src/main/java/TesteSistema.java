@@ -18,6 +18,7 @@ import com.profesorfalken.jsensors.model.sensors.Temperature;
 import integracao.Slack;
 import login.Funcionario;
 import org.json.JSONObject;
+import login.Funcionario;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
