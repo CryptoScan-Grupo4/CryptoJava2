@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Log {
 
-    private static final String DIRETORIO_LOG = "C:\\CryptoScan - Logs";
+    private static final String DIRETORIO_LOG = "E:\\CryptoScan - Logs";
     private static final String EXTENSAO_ARQUIVO = ".txt";
     //private static final long TAMANHO_MAXIMO_ARQUIVO = 4 * 1024 * 1024; // 4 MB
     private static final long TAMANHO_MAXIMO_ARQUIVO = 4 * 1024;

@@ -1,10 +1,13 @@
 import Computador.Computador;
 import Computador.Setup;
 import Conexao.Conexao;
-import Conexao.ConexaoSql;
 import Log.Log;
 import Medida.Medida;
 import com.github.britooo.looca.api.core.Looca;
+import com.github.britooo.looca.api.group.discos.Disco;
+import com.github.britooo.looca.api.group.discos.DiscoGrupo;
+import com.github.britooo.looca.api.group.memoria.Memoria;
+import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
 import com.github.britooo.looca.api.group.sistema.Sistema;
 import com.github.britooo.looca.api.util.Conversor;
@@ -12,9 +15,13 @@ import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Components;
 import com.profesorfalken.jsensors.model.components.Gpu;
 import com.profesorfalken.jsensors.model.sensors.Temperature;
+import integracao.Slack;
+import login.Funcionario;
+import org.json.JSONObject;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -26,16 +33,16 @@ public class TesteSistema {
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String RESET = "\u001B[0m";
+
     public static void main(String[] args) {
 
+        Slack slack = new Slack();
         Log log = new Log();
         Timer timer = new Timer();
         Looca looca = new Looca();
         Conexao conexao = new Conexao();
-        ConexaoSql conexaoSql = new ConexaoSql();
         Sistema sistema = looca.getSistema();
         JdbcTemplate sql = conexao.getConexaoDoBanco();
-        JdbcTemplate sqlServer = conexaoSql.getConexaoDoBancoSqlServer();
         Scanner leitor = new Scanner(System.in);
         Scanner leitorLogin = new Scanner(System.in);
         Integer opcaoEscolhida;
@@ -82,7 +89,7 @@ public class TesteSistema {
                     senha = leitorLogin.nextLine();
                     log.info("Senha informada");
 
-                    listaLoginFuncionario = sqlServer.query("SELECT FROM Computador WHERE idFuncionario IN SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?)",
+                    listaLoginFuncionario = sql.query("SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?",
                             new BeanPropertyRowMapper<>(Computador.class), emailFuncionario, senha);
 
 
@@ -108,7 +115,7 @@ public class TesteSistema {
                         serialMaquina = leitorSerial.nextInt();
                         log.info("Serial da máquina informado!");
 
-                        List<Setup> codigoComputadores = sqlServer.query("SELECT s.idSetup, s.fkComputador FROM Setup s INNER JOIN Computador c ON s.fkComputador = c.idComputador WHERE c.serialComputador = ?)",
+                        List<Setup> codigoComputadores = sql.query("SELECT serialComputador FROM Computador WHERE serialComputador = ?",
                                 new BeanPropertyRowMapper<>(Setup.class), serialMaquina);
 
                         if (codigoComputadores.size() == 0) {
@@ -128,7 +135,7 @@ public class TesteSistema {
                             idSetup = leitorOpcaoSetup.nextInt();
                             log.info("Id do setup informado!");
 
-                            List<Medida> setupsDoBanco = sqlServer.query("SELECT * FROM Setup WHERE idSetup = ? ",
+                            List<Medida> setupsDoBanco = sql.query("SELECT * FROM Setup WHERE idSetup = ? ",
                                     new BeanPropertyRowMapper<>(Medida.class), idSetup);
 
 
@@ -189,45 +196,52 @@ public class TesteSistema {
 
                                                     Double velocidadeDownload = 0.0;
                                                     List<RedeInterface> lista = looca.getRede().getGrupoDeInterfaces().getInterfaces();
-                                                    for (int i = 0; lista.size() > i; i++){
-                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()){
+                                                    for (int i = 0; lista.size() > i; i++) {
+                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()) {
                                                             velocidadeDownload = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getBytesRecebidos().doubleValue();
                                                             break;
                                                         }
                                                     }
 
                                                     Double velocidadeUpload = 0.0;
-                                                    for (int i = 0; lista.size() > i; i++){
-                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()){
+                                                    for (int i = 0; lista.size() > i; i++) {
+                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()) {
                                                             velocidadeUpload = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getBytesEnviados().doubleValue();
                                                             break;
                                                         }
                                                     }
-                                                     Conversor.formatarBytes(velocidadeDownload.longValue());
-                                                     Conversor.formatarBytes(velocidadeUpload.longValue());
+                                                    Conversor.formatarBytes(velocidadeDownload.longValue());
+                                                    Conversor.formatarBytes(velocidadeUpload.longValue());
 
-                                                    Double porcentagemUsoDowload = (velocidadeDownload * 100 ) / 150.0;
+                                                    Double porcentagemUsoDowload = (velocidadeDownload * 100) / 150.0;
                                                     Double porcentagemUsoUpload = (velocidadeUpload * 100) / 150.0;
-
 
 
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoProcessador, 1, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 2, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 3, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 4, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeDownload, 5, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeUpload, 6, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 7, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 3, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeDownload, 4, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 5, idSetup);
 
+                                                    JSONObject json = new JSONObject();
 
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoProcessador, 1, idSetup);
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 2, idSetup);
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 3, idSetup);
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 4, idSetup);
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeDownload, 5, idSetup);
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeUpload, 6, idSetup);
-                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 7, idSetup);
+                                                    if (!gpus.isEmpty()) {
+                                                        Double temperaturaGpu = gpuUnique.sensors.temperatures.get(0).value;
+                                                        String nomeGpu = gpuUnique.name;
+                                                        if (temperaturaGpu > 40.0) {
+                                                            String msg = "*ALERTA DE ALTA TEMPERATURA*\n*GPU:* %s | *Temperatura:* %.1fºC | *Serial:* %d".formatted(nomeGpu, temperaturaGpu, serialMaquina);
+                                                            json.put("text", msg);
+                                                            log.info("Alerta de alta temperatura: %.1fºC".formatted(temperaturaGpu));
+                                                        }
+                                                    }
+
+                                                    try {
+                                                        Slack.sendMessage(json);
+                                                    } catch (IOException | InterruptedException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
                                                 }
+
                                             }, 5000, 2000);
 
                                             break;
@@ -235,7 +249,7 @@ public class TesteSistema {
                                         case 2:
                                             log.info("Vizualizando histórico");
 
-                                            List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, DATE_FORMAT(dataHoraMedida, '%d %c %Y %T') AS 'dataHoraMedida' FROM Medida join Setup on idSetup = fkSetup join Componente on idComponente = fkComponente where idSetup = ?;",
+                                            List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, FORMAT(dataHoraMedida, 'dd MMM yyyy HH:mm:ss') AS dataHoraMedida FROM Medida JOIN Setup ON idSetup = fkSetup JOIN Componente ON idComponente = fkComponente WHERE idSetup = ?;",
                                                     new BeanPropertyRowMapper<>(Medida.class), idSetup);
 
                                             for (Medida medida : medidasInseridas) {
@@ -287,11 +301,11 @@ public class TesteSistema {
 
                                 } while (opcaoDados != 5);
 
-                                 System.out.println("Parando o sistema");
+                                System.out.println("Parando o sistema");
 
-                                    System.exit(0);
+                                System.exit(0);
 
-                                    break;
+                                break;
                             }
 
                         }
