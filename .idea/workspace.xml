@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13252220-6474-434a-9c17-1764ffd868b3" name="Changes" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TesteSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TesteSistema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/integracao/Slack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/integracao/Slack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/integracao/Slack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/integracao/Slack.class" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
+>>>>>>> f7a7f4ec8a2ed131c2f806a838e02f32bf2210f8
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +53,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< HEAD
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/penultima att 00/pom.xml",
+=======
     "git-widget-placeholder": "heranca",
     "last_opened_file_path": "C:/Users/Aluno/Documents/CryptoJava2",
+>>>>>>> f7a7f4ec8a2ed131c2f806a838e02f32bf2210f8
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -82,12 +97,25 @@
       <option name="presentableId" value="Default" />
       <updated>1700090086708</updated>
       <workItem from="1700155844392" duration="5192000" />
+      <workItem from="1701011778042" duration="12262000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/TesteSistema.java</url>
+          <line>33</line>
+          <properties class="TesteSistema" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+=======
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
@@ -97,6 +125,7 @@
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/TesteSistema.java</url>
           <line>49</line>
+>>>>>>> f7a7f4ec8a2ed131c2f806a838e02f32bf2210f8
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

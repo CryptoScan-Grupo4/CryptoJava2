@@ -15,10 +15,14 @@ import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Components;
 import com.profesorfalken.jsensors.model.components.Gpu;
 import com.profesorfalken.jsensors.model.sensors.Temperature;
+import integracao.Slack;
+import login.Funcionario;
+import org.json.JSONObject;
 import login.Funcionario;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -30,8 +34,10 @@ public class TesteSistema {
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String RESET = "\u001B[0m";
+
     public static void main(String[] args) {
 
+        Slack slack = new Slack();
         Log log = new Log();
         Timer timer = new Timer();
         Looca looca = new Looca();
@@ -191,26 +197,25 @@ public class TesteSistema {
 
                                                     Double velocidadeDownload = 0.0;
                                                     List<RedeInterface> lista = looca.getRede().getGrupoDeInterfaces().getInterfaces();
-                                                    for (int i = 0; lista.size() > i; i++){
-                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()){
+                                                    for (int i = 0; lista.size() > i; i++) {
+                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()) {
                                                             velocidadeDownload = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getBytesRecebidos().doubleValue();
                                                             break;
                                                         }
                                                     }
 
                                                     Double velocidadeUpload = 0.0;
-                                                    for (int i = 0; lista.size() > i; i++){
-                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()){
+                                                    for (int i = 0; lista.size() > i; i++) {
+                                                        if (!lista.get(i).getEnderecoIpv4().isEmpty()) {
                                                             velocidadeUpload = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getBytesEnviados().doubleValue();
                                                             break;
                                                         }
                                                     }
-                                                     Conversor.formatarBytes(velocidadeDownload.longValue());
-                                                     Conversor.formatarBytes(velocidadeUpload.longValue());
+                                                    Conversor.formatarBytes(velocidadeDownload.longValue());
+                                                    Conversor.formatarBytes(velocidadeUpload.longValue());
 
-                                                    Double porcentagemUsoDowload = (velocidadeDownload * 100 ) / 150.0;
+                                                    Double porcentagemUsoDowload = (velocidadeDownload * 100) / 150.0;
                                                     Double porcentagemUsoUpload = (velocidadeUpload * 100) / 150.0;
-
 
 
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoProcessador, 1, idSetup);
@@ -218,7 +223,26 @@ public class TesteSistema {
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 3, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeDownload, 4, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 5, idSetup);
+
+                                                    JSONObject json = new JSONObject();
+
+                                                    if (!gpus.isEmpty()) {
+                                                        Double temperaturaGpu = gpuUnique.sensors.temperatures.get(0).value;
+                                                        String nomeGpu = gpuUnique.name;
+                                                        if (temperaturaGpu > 40.0) {
+                                                            String msg = "*ALERTA DE ALTA TEMPERATURA*\n*GPU:* %s | *Temperatura:* %.1fºC | *Serial:* %d".formatted(nomeGpu, temperaturaGpu, serialMaquina);
+                                                            json.put("text", msg);
+                                                            log.info("Alerta de alta temperatura: %.1fºC".formatted(temperaturaGpu));
+                                                        }
+                                                    }
+
+                                                    try {
+                                                        Slack.sendMessage(json);
+                                                    } catch (IOException | InterruptedException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
                                                 }
+
                                             }, 5000, 2000);
 
                                             break;
@@ -278,11 +302,11 @@ public class TesteSistema {
 
                                 } while (opcaoDados != 5);
 
-                                 System.out.println("Parando o sistema");
+                                System.out.println("Parando o sistema");
 
-                                    System.exit(0);
+                                System.exit(0);
 
-                                    break;
+                                break;
                             }
 
                         }
