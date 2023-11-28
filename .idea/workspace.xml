@@ -5,19 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13252220-6474-434a-9c17-1764ffd868b3" name="Changes" comment="">
-<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Conexao/Conexao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Conexao/Conexao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TesteSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TesteSistema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/integracao/Slack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/integracao/Slack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/integracao/Slack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/integracao/Slack.class" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TesteSistema.class" afterDir="false" />
->>>>>>> f7a7f4ec8a2ed131c2f806a838e02f32bf2210f8
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Componente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Computador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/LimiteComponente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Computador/Setup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Conexao/Conexao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Conexao/Sistema.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Medida/Medida.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TesteSistema.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/login/Funcionario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/login/TipoConta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sistema-CryptoScan-1.0.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,32 +49,18 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2YEU9v7i3QxmbySGlSeQbbCR2Y4" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-<<<<<<< HEAD
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/penultima att 00/pom.xml",
-=======
-    "git-widget-placeholder": "heranca",
-    "last_opened_file_path": "C:/Users/Aluno/Documents/CryptoJava2",
->>>>>>> f7a7f4ec8a2ed131c2f806a838e02f32bf2210f8
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programação/GUI/CryptoJava2/pom.xml&quot;
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install" />
@@ -96,39 +90,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1700090086708</updated>
-      <workItem from="1700155844392" duration="5192000" />
-      <workItem from="1701011778042" duration="12262000" />
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-<<<<<<< HEAD
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/TesteSistema.java</url>
-          <line>33</line>
-          <properties class="TesteSistema" method="main">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-=======
-  <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/TesteSistema.java</url>
-          <line>49</line>
->>>>>>> f7a7f4ec8a2ed131c2f806a838e02f32bf2210f8
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

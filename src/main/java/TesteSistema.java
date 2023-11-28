@@ -1,13 +1,10 @@
 import Computador.Computador;
 import Computador.Setup;
 import Conexao.Conexao;
-import Log.Log;
+import Conexao.ConexaoSql;
 import Medida.Medida;
 import com.github.britooo.looca.api.core.Looca;
-import com.github.britooo.looca.api.group.discos.Disco;
-import com.github.britooo.looca.api.group.discos.DiscoGrupo;
-import com.github.britooo.looca.api.group.memoria.Memoria;
-import com.github.britooo.looca.api.group.processador.Processador;
+
 import com.github.britooo.looca.api.group.rede.RedeInterface;
 import com.github.britooo.looca.api.group.sistema.Sistema;
 import com.github.britooo.looca.api.util.Conversor;
@@ -15,14 +12,10 @@ import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Components;
 import com.profesorfalken.jsensors.model.components.Gpu;
 import com.profesorfalken.jsensors.model.sensors.Temperature;
-import integracao.Slack;
-import login.Funcionario;
-import org.json.JSONObject;
-import login.Funcionario;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -34,16 +27,14 @@ public class TesteSistema {
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String RESET = "\u001B[0m";
-
     public static void main(String[] args) {
-
-        Slack slack = new Slack();
-        Log log = new Log();
         Timer timer = new Timer();
         Looca looca = new Looca();
         Conexao conexao = new Conexao();
+        ConexaoSql conexao2 = new ConexaoSql();
         Sistema sistema = looca.getSistema();
         JdbcTemplate sql = conexao.getConexaoDoBanco();
+        JdbcTemplate sqlServer = conexao2.getConexaoDoBancoSqlServer();
         Scanner leitor = new Scanner(System.in);
         Scanner leitorLogin = new Scanner(System.in);
         Integer opcaoEscolhida;
@@ -53,16 +44,12 @@ public class TesteSistema {
 
         Components components = JSensors.get.components();
         List<Gpu> gpus = components.gpus;
-        Gpu gpuUnique = components.gpus.get(0);
 
         System.out.println("""
                 |-------------------------------|
                 |    Bem vindo ao CryptoScan    |
                 |-------------------------------|
                 """);
-        log.info("Entrada no sistema CryptoScan");
-
-
         do {
             System.out.println("""
                     |-------------------------------|
@@ -80,7 +67,6 @@ public class TesteSistema {
                             |-------------------------------|
                             """);
                     emailFuncionario = leitorLogin.nextLine();
-                    log.info("Email informado");
 
                     System.out.println("""
                             |-------------------------------|
@@ -88,9 +74,8 @@ public class TesteSistema {
                             |-------------------------------|
                             """);
                     senha = leitorLogin.nextLine();
-                    log.info("Senha informada");
 
-                    listaLoginFuncionario = sql.query("SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?",
+                    listaLoginFuncionario = sql.query("SELECT * FROM Computador WHERE (SELECT idFuncionario FROM Funcionario WHERE emailFuncionario = ? AND senha = ?)",
                             new BeanPropertyRowMapper<>(Computador.class), emailFuncionario, senha);
 
 
@@ -102,8 +87,6 @@ public class TesteSistema {
                                 |Rever os dados informados ou Fazer cadastro no site   |
                                 |------------------------------------------------------|
                                 """);
-                        log.error("Conta não encontrada");
-
                     } else {
 
                         Scanner leitorSerial = new Scanner(System.in);
@@ -114,15 +97,12 @@ public class TesteSistema {
                                 |-------------------------------------|
                                 """);
                         serialMaquina = leitorSerial.nextInt();
-                        log.info("Serial da máquina informado!");
 
-                        List<Setup> codigoComputadores = sql.query("SELECT serialComputador FROM Computador WHERE serialComputador = ?",
+                        List<Setup> codigoComputadores = sql.query("SELECT idSetup, fkComputador FROM Setup WHERE(SELECT serialComputador FROM Computador WHERE serialComputador = ?)",
                                 new BeanPropertyRowMapper<>(Setup.class), serialMaquina);
 
                         if (codigoComputadores.size() == 0) {
                             System.out.println("Computador não existe");
-                            log.error("Serial não existente");
-
                         } else {
                             Scanner leitorOpcaoSetup = new Scanner(System.in);
                             Integer idSetup;
@@ -134,7 +114,6 @@ public class TesteSistema {
                                     |-------------------------------------|
                                     """);
                             idSetup = leitorOpcaoSetup.nextInt();
-                            log.info("Id do setup informado!");
 
                             List<Medida> setupsDoBanco = sql.query("SELECT * FROM Setup WHERE idSetup = ? ",
                                     new BeanPropertyRowMapper<>(Medida.class), idSetup);
@@ -142,8 +121,6 @@ public class TesteSistema {
 
                             if (setupsDoBanco.size() == 0) {
                                 System.out.println("Setup não existe");
-                                log.error("Id do setup não localizado!");
-
                             } else {
                                 Scanner leitorOpcaoDados = new Scanner(System.in);
                                 Integer opcaoDados;
@@ -152,7 +129,6 @@ public class TesteSistema {
                                         |                  Setup acessado                   |
                                         |---------------------------------------------------|
                                         """);
-                                log.success("Setup acessado!");
 
                                 do {
                                     System.out.println("""
@@ -162,14 +138,13 @@ public class TesteSistema {
                                             |3 - Informações de disco                           |
                                             |4 - Informações da GPU                             |
                                             |5 - Sair                                           |
+                                            |0 - Parar leitura                                  |
                                             |---------------------------------------------------|
                                             """);
                                     opcaoDados = leitorOpcaoDados.nextInt();
 
                                     switch (opcaoDados) {
                                         case 1:
-                                            log.info("Inicialização da leitura em tempo real");
-
                                             timer.schedule(new TimerTask() {
                                                 @Override
                                                 public void run() {
@@ -178,8 +153,6 @@ public class TesteSistema {
                                                     Long limiteMemoria = (looca.getMemoria().getTotal());
 
                                                     Double porcentagemMemoria = Double.valueOf((usoMemoria * 100) / limiteMemoria);
-
-                                                    Double temperaturaGPU = Double.valueOf(gpuUnique.sensors.temperatures.get(0).value);
 
                                                     Double valorDisponivelDisco = Double.valueOf(looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel() / 8e+9);
                                                     Double valorTotalDisco = Double.valueOf(looca.getGrupoDeDiscos().getVolumes().get(0).getTotal() / 8e+9);
@@ -217,40 +190,27 @@ public class TesteSistema {
                                                     Double porcentagemUsoDowload = (velocidadeDownload * 100) / 150.0;
                                                     Double porcentagemUsoUpload = (velocidadeUpload * 100) / 150.0;
 
-
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoProcessador, 1, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 2, idSetup);
                                                     sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 3, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", velocidadeDownload, 4, idSetup);
-                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 5, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemUsoDowload, 4, idSetup);
+                                                    sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemUsoUpload, 5, idSetup);
 
-                                                    JSONObject json = new JSONObject();
 
-                                                    if (!gpus.isEmpty()) {
-                                                        Double temperaturaGpu = gpuUnique.sensors.temperatures.get(0).value;
-                                                        String nomeGpu = gpuUnique.name;
-                                                        if (temperaturaGpu > 40.0) {
-                                                            String msg = "*ALERTA DE ALTA TEMPERATURA*\n*GPU:* %s | *Temperatura:* %.1fºC | *Serial:* %d".formatted(nomeGpu, temperaturaGpu, serialMaquina);
-                                                            json.put("text", msg);
-                                                            log.info("Alerta de alta temperatura: %.1fºC".formatted(temperaturaGpu));
-                                                        }
-                                                    }
+                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoProcessador, 1, idSetup);
+                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemMemoria, 2, idSetup);
+                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", usoDisco, 3, idSetup);
+                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemUsoDowload, 4, idSetup);
+                                                    sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", porcentagemUsoUpload, 5, idSetup);
 
-                                                    try {
-                                                        Slack.sendMessage(json);
-                                                    } catch (IOException | InterruptedException e) {
-                                                        throw new RuntimeException(e);
-                                                    }
+
                                                 }
-
                                             }, 5000, 2000);
 
                                             break;
 
                                         case 2:
-                                            log.info("Vizualizando histórico");
-
-                                            List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, FORMAT(dataHoraMedida, 'dd MMM yyyy HH:mm:ss') AS dataHoraMedida FROM Medida JOIN Setup ON idSetup = fkSetup JOIN Componente ON idComponente = fkComponente WHERE idSetup = ?;",
+                                            List<Medida> medidasInseridas = sql.query("SELECT tipoComponente, medida, idSetup AS fkSetup, DATE_FORMAT(dataHoraMedida, '%d %c %Y %T') AS 'dataHoraMedida' FROM Medida join Setup on idSetup = fkSetup join Componente on idComponente = fkComponente where idSetup = ?;",
                                                     new BeanPropertyRowMapper<>(Medida.class), idSetup);
 
                                             for (Medida medida : medidasInseridas) {
@@ -258,7 +218,6 @@ public class TesteSistema {
                                             }
                                             break;
                                         case 3:
-                                            log.info("Acesso a informação de disco");
                                             String tamanhoTotal = Conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal());
                                             String espacoDisponivel = GREEN + Conversor.formatarBytes(looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel()) + RESET;
                                             String espacoEmUso = RED + Conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal() - looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel()) + RESET;
@@ -276,48 +235,62 @@ public class TesteSistema {
                                                     """, tamanhoTotal, espacoDisponivel, espacoEmUso);
                                             break;
                                         case 4:
-                                            log.info("Acesso a GPU");
-
-                                            if (gpus != null) {
+                                            if (gpus != null && !gpus.isEmpty()) {
                                                 for (Gpu gpu : gpus) {
                                                     List<Temperature> temps = gpu.sensors.temperatures;
                                                     for (final Temperature temp : temps) {
-                                                        System.out.printf("""
-                                                                \n
-                                                                |------------------------------------------------------------------|
-                                                                |                       INFORMAÇÕES DA GPU                         |
-                                                                |------------------------------------------------------------------|
-                                                                |Nome: %s                                                          |
-                                                                |Temperatura: %.1f ºC                                              |
-                                                                |------------------------------------------------------------------|
-                                                                \n
-                                                                """, gpu.name, temp.value);
+                                                        timer.schedule(new TimerTask() {
+                                                            @Override
+                                                            public void run() {
+                                                                Double temperaturaGPU = Double.valueOf(gpus.get(0).sensors.temperatures.toString());
+                                                                sql.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 5, idSetup);
+                                                                sqlServer.update("INSERT INTO Medida (medida, fkComponente, fkSetup) VALUES (?, ?, ?)", temperaturaGPU, 5, idSetup);
+
+                                                                System.out.printf("""
+                                                                    |------------------------------------------------------------------|
+                                                                    |                       INFORMAÇÕES DA GPU                         |
+                                                                    |------------------------------------------------------------------|
+                                                                    |Nome: %s                                                          |
+                                                                    |Temperatura: %.1f ºC                                              |
+                                                                    |------------------------------------------------------------------|
+                                                                        """, gpu.name, temp.value);
+                                                                }
+                                                            }, 5000, 2000);
+
+
+
+
+                                                        }
                                                     }
+                                                } else {
+                                                    System.out.println("Nenhuma GPU detectada");
+
                                                 }
-                                            } else {
-                                                System.out.println("Nenhuma GPU detectada");
+                                                break;
+
+
+                                            case 0: {
+                                                System.out.println("Parando leitura");
+
+                                                System.exit(0);
+
+                                                break;
                                             }
-                                            break;
-                                    }
+                                        }
 
-                                } while (opcaoDados != 5);
+                                    } while (opcaoDados != 5);
 
-                                System.out.println("Parando o sistema");
 
-                                System.exit(0);
+                                }
 
-                                break;
                             }
 
                         }
+                        break;
+                }
 
-                    }
-                    break;
+            } while (opcaoEscolhida != 0);
 
-            }
-
-        } while (opcaoEscolhida != 0);
+        }
 
     }
-
-}
